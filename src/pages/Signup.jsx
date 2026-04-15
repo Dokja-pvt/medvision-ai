@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { useNavigate, Link } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function Signup() {
@@ -9,6 +9,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -58,14 +59,23 @@ export default function Signup() {
           </div>
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-2">Password</label>
-            <input 
-              type="password" 
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-gray-50/50 border border-gray-200 rounded-2xl py-3.5 px-5 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all text-slate-900 placeholder:text-slate-500"
-              placeholder="••••••••"
-            />
+            <div className="relative w-full">
+              <input 
+                type={showPassword ? "text" : "password"} 
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-gray-50/50 border border-gray-200 rounded-2xl py-3.5 pl-5 pr-12 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all text-slate-900 placeholder:text-slate-500"
+                placeholder="••••••••"
+              />
+              <button 
+                type="button" 
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-brand-blue transition-colors cursor-pointer"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
           </div>
           
           <button 
