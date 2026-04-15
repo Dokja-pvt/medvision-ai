@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    font-size: 14.5px;
+}
+
+:root {
+  --bg-main: #ffffff;
+  --text-main: #111827; /* Dark Gray/Black */
+  --card-bg: #f9fafb;
+}
+
+.dark {
+  --bg-main: #0B0F1A; /* Deep Navy */
+  --text-main: #f9fafb; /* White */
+  --card-bg: #161B22; /* Card Gray */
+}
+
+html.dark {
+  color: #ffffff !important;
+  background-color: #0B0F1A !important;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-blue: #00A3FF;
+}
