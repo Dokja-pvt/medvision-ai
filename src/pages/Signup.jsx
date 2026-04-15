@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { useNavigate, Link } from 'react-router-dom';
-import { Loader2, Eye, EyeOff } from 'lucide-react';
+import { Loader2, Eye, EyeOff, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function Signup() {
@@ -9,6 +9,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [username, setUsername] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -20,6 +21,12 @@ export default function Signup() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: { 
+          display_name: username,
+          full_name: username
+        }
+      }
     });
 
     if (error) {
@@ -46,6 +53,20 @@ export default function Signup() {
         )}
         
         <form onSubmit={handleSignup} className="space-y-5">
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Username</label>
+            <div className="relative w-full">
+              <input 
+                type="text" 
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full bg-gray-50/50 border border-gray-200 rounded-2xl py-3.5 pl-5 pr-12 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all text-slate-900 placeholder:text-slate-500"
+                placeholder="Dr. John Doe"
+              />
+              <User size={20} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            </div>
+          </div>
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
             <input 
